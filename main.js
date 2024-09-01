@@ -28,7 +28,6 @@ function loadTodos() {
 window.addEventListener("DOMContentLoaded", loadTodos);
 
 function addToDo() {
-
   let todos = JSON.parse(localStorage.getItem("todos")) || [];
   const todoText = todoInputEl.value;
 
@@ -45,10 +44,10 @@ function addToDo() {
       </li>
       `;
 
+    todoInputEl.value = "";
     todoListEl.innerHTML += todo;
     todos.push(todoText);
     localStorage.setItem("todos", JSON.stringify(todos));
-    
   }
 }
 
