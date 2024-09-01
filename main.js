@@ -12,13 +12,15 @@ addBtnEl.addEventListener("click", function () {
 function loadTodos() {
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
 
-  todos.forEach((obj) => {
-    const { id, text } = obj;
+  // Clear existing todos in the DOM
+  todoListEl.innerHTML = "";
 
+  todos.forEach((obj, index) => {
+    const { text } = obj;
     // Create HTML for each todo item
     const todoHTML = `
-      <li class="todo" id="${id}">
-        <input type="checkbox" name="complete" id="check" />
+      <li class="todo" id="${index}">
+        <input type="checkbox" name="complete" class="todo-checkbox" />
         <p class="todo-text">${text}</p>
         <div class="todo-icon">
           <i class="ri-delete-bin-line"></i>
@@ -28,6 +30,9 @@ function loadTodos() {
 
     // Append each todo to the list element
     todoListEl.innerHTML += todoHTML;
+
+    // Store the updated todos array in localStorage
+    localStorage.setItem("todos", JSON.stringify(todos));
   });
 }
 
@@ -80,11 +85,13 @@ function addToDo() {
 
 // Event listener for deleting todos when the delete icon is clicked
 todoListEl.addEventListener("click", function (e) {
+  // Get the todo Item
+  var currentTodoItem = e.target.closest(".todo");
+  // Get the todo item's ID
+  var currentTodoId = currentTodoItem.id;
+
   // Check if the clicked element is the delete icon
   if (e.target.classList.contains("ri-delete-bin-line")) {
-    const currentTodoItem = e.target.closest(".todo"); // Get the closest todo item element
-    const currentTodoId = currentTodoItem.id; // Get the todo item's ID
-
     // Remove the todo item from the DOM
     currentTodoItem.remove();
 
@@ -92,12 +99,18 @@ todoListEl.addEventListener("click", function (e) {
     let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
     // Filter out the todo item that matches the current ID
-    todos = todos.filter((todo) => {
-      return currentTodoId != todo.id;
-    });
+    todos = todos
+      .filter((todo) => currentTodoId != todo.id) // Remove the deleted todo
+      .map((todo, index) => ({ ...todo, id: index })); // Reassign IDs
 
     // Update localStorage with the filtered todos array
     localStorage.setItem("todos", JSON.stringify(todos));
+
+    // Re-render the todos list
+    loadTodos();
+  }
+
+  if (e.target.classList.contains("todo-checkbox")) {
+    console.log(this, currentTodoId);
   }
 });
-
