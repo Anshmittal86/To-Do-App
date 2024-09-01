@@ -5,10 +5,9 @@
   --bg-check: #7FCD91;
   --icon-color: #F5004F;
 
-
   --test-lg: clamp(1.2rem, 5vw, 1.5rem);
   --test-xl: clamp(1.5rem, 8.5vw, 2.5rem);
-  --test-md: clamp(1rem, 4vw, 1.3rem)
+  --test-md: clamp(1rem, 4vw, 1.3rem);
 }
 
 * {
@@ -24,13 +23,23 @@ li {
   list-style: none;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 main {
   width: 100vw;
   min-height: 100dvh;
   background-color: var(--bg-color);
   color: var(--text-color);
   font-weight: 400;
-
   display: flex;
   justify-content: center;
 }
@@ -51,7 +60,6 @@ main {
   background-color: var(--bg-color-secondary);
   padding: 5px;
   border-radius: 10px;
-
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -76,7 +84,6 @@ main {
   cursor: pointer;
 }
 
-
 .container-todos {
   margin-top: 2rem;
 }
@@ -87,12 +94,17 @@ main {
   gap: 0.8rem;
   max-height: 350px;
   overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  -ms-overflow-style: scrollbar;
+}
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+.todos-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.todos-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
 .todos-list>.todo {
@@ -100,7 +112,6 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .todos-list>.todo>input {
@@ -115,16 +126,15 @@ main {
   position: relative;
   cursor: pointer;
   outline: none;
-
   display: grid;
   place-items: center;
 }
 
-.todos-list>.todo>input:checked {
+.todos-list>.todo>input[data-check="true"] {
   background-color: var(--bg-check);
 }
 
-.todos-list>.todo>input:checked:before {
+.todos-list>.todo>input[data-check="true"]::before {
   --check-size: 6.5px;
   content: '';
   position: absolute;
@@ -135,7 +145,7 @@ main {
   transform: rotate(45deg);
 }
 
-.todos-list>.todo>input:checked+p {
+.todos-list>.todo>input[data-check="true"]+p {
   text-decoration: line-through;
   opacity: 0.5;
 }
@@ -144,14 +154,7 @@ main {
   width: min(350px, 80%);
   font-size: var(--test-md);
   padding-block: 0.5rem;
-
   overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .todos-list>.todo>.todo-icon {

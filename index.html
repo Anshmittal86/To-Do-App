@@ -3,34 +3,34 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Manage your tasks efficiently with this intuitive TO DO app. Add, check, and remove tasks easily.">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.0/modern-normalize.min.css"
     integrity="sha512-3axTZ/bKFZH5/qLFTl4U+mDbBDFW+5QO5L7D1HnOhlhJbcNDIVJxoNm6It77g0eUdzfKZlHirayqRC2qJaAOJw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./stylesheets/style.css">
-  <title>TO DO</title>
+  <title>My TO DO App - Organize Your Tasks Efficiently</title>
 </head>
 
 <body>
 
   <main>
-
-    <div class="main-container">
+    <section class="main-container">
       <h1>TO DO App</h1>
       <div class="addTodo-container">
+        <label for="todo-input" class="visually-hidden">Task name</label>
         <input type="text" name="todo" id="todo-input" placeholder="Task name" />
         <button id="add-todo">Add</button>
       </div>
 
-      <div class="container-todos">
+      <section class="container-todos">
         <ul class="todos-list">
-          <!-- To Do added by the javaScript -->
+          <!-- To Do added by JavaScript -->
         </ul>
-      </div>
-    </div>
-
+      </section>
+    </section>
   </main>
 
   <script type="module" src="/main.js"></script>
