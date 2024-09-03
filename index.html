@@ -18,6 +18,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet">
     <link rel="stylesheet" href="./stylesheets/style.css" />
     <title>My TO DO App - Organize Your Tasks Efficiently</title>
   </head>
@@ -25,6 +26,9 @@
   <body>
     <main>
       <section class="main-container">
+        <div class="todo-chart">
+          <canvas id="myDoughnutChart"></canvas>
+        </div>
         <h1>TO DO App</h1>
         <div class="addTodo-container">
           <label for="todo-input" class="visually-hidden">Task name</label>
@@ -33,7 +37,6 @@
             name="todo"
             id="todo-input"
             placeholder="Task name"
-            
           />
           <button id="add-todo">Add</button>
         </div>
