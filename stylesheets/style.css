@@ -1,11 +1,12 @@
 :root {
   --bg-color: #262626;
   --text-color: #f4f4f4;
-  --bg-color-secondary: #413F42;
-  --bg-check: #7FCD91;
-  --icon-color: #F5004F;
+  --bg-color-secondary: #413f42;
+  --bg-check: #7fcd91;
+  --delete-color: #f5004f;
+  --edit-color: #32cd32;
 
-  --test-lg: clamp(1.2rem, 5vw, 1.5rem);
+  --test-lg: clamp(1.2rem, 5.5vw, 1.5rem);
   --test-xl: clamp(1.5rem, 8.5vw, 2.5rem);
   --test-md: clamp(1rem, 4vw, 1.3rem);
 }
@@ -56,7 +57,7 @@ main {
   font-size: var(--test-xl);
 }
 
-.main-container>.addTodo-container {
+.main-container > .addTodo-container {
   background-color: var(--bg-color-secondary);
   padding: 5px;
   border-radius: 10px;
@@ -65,7 +66,7 @@ main {
   justify-content: space-around;
 }
 
-.main-container>.addTodo-container>input {
+.main-container > .addTodo-container > input {
   padding: 1rem;
   width: min(300px, 60vw);
   border-radius: 20px;
@@ -74,7 +75,7 @@ main {
   font-size: var(--test-md);
 }
 
-.main-container>.addTodo-container>button {
+.main-container > .addTodo-container > button {
   padding: 0.9rem 2rem;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -91,7 +92,7 @@ main {
 .todos-list {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.3rem;
   max-height: 350px;
   overflow: auto;
   scrollbar-width: thin;
@@ -107,14 +108,14 @@ main {
   border-radius: 10px;
 }
 
-.todos-list>.todo {
+.todos-list > .todo {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.todos-list>.todo>input {
+.todos-list > .todo > input {
   --size: 25px;
   appearance: none;
   -webkit-appearance: none;
@@ -130,13 +131,13 @@ main {
   place-items: center;
 }
 
-.todos-list>.todo>input[data-check="true"] {
+.todos-list > .todo > input[data-check="true"] {
   background-color: var(--bg-check);
 }
 
-.todos-list>.todo>input[data-check="true"]::before {
+.todos-list > .todo > input[data-check="true"]::before {
   --check-size: 6.5px;
-  content: '';
+  content: "";
   position: absolute;
   width: var(--check-size);
   height: calc(var(--check-size) * 2);
@@ -145,23 +146,60 @@ main {
   transform: rotate(45deg);
 }
 
-.todos-list>.todo>input[data-check="true"]+p {
+.todos-list > .todo > input[data-check="true"] + span {
   text-decoration: line-through;
   opacity: 0.5;
 }
 
-.todos-list>.todo>p {
-  width: min(350px, 80%);
+.todos-list > .todo > .edit-input {
+  display: none; /* Initially hidden */
+  padding: 1rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--bg-color-secondary);
+  background-color: var(--bg-color-secondary);
+  color: var(--text-color);
+  font-size: var(--test-md);
+  width: calc(70% - 10px); /* Adjust as needed */
+}
+
+.todos-list > .todo > .edit-input:focus {
+  border-color: var(--edit-color); /* Highlight border when focused */
+}
+
+.todos-list > .todo > span {
+  width: min(350px, 70%);
   font-size: var(--test-md);
   padding-block: 0.5rem;
   overflow: auto;
 }
 
-.todos-list>.todo>.todo-icon {
+.todos-list > .todo > .delete-todo,
+.todos-list > .todo > .edit-todo {
+  padding: 0.15rem;
+  border-radius: 3px;
+  background: var(--bg-color-secondary);
+  opacity: 1;
   cursor: pointer;
+  transition: opacity 0.1s ease;
 }
 
-.todos-list>.todo>.todo-icon>i {
+.todos-list > .todo > .delete-todo:hover,
+.todos-list > .todo > .edit-todo:hover {
+  opacity: 0.9;
+}
+
+.todos-list > .todo > .edit-todo > i {
   font-size: var(--test-lg);
-  color: var(--icon-color);
+  color: var(--edit-color);
+}
+
+.todos-list > .todo > .delete-todo > i {
+  font-size: var(--test-lg);
+  color: var(--delete-color);
+}
+
+@media (max-width: 578px) {
+  .todos-list > .todo > .edit-todo {
+    margin-right: 0.5rem;
+  }
 }
