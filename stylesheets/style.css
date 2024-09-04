@@ -2,7 +2,7 @@
   --bg-color: #262626;
   --text-color: #f4f4f4;
   --bg-color-secondary: #413f42;
-  --bg-check: #7fcd91;
+  --bg-check: #26dc51;
   --delete-color: #f5004f;
   --edit-color: #32cd32;
 
@@ -10,7 +10,17 @@
   --test-xl: clamp(1.5rem, 8.5vw, 2.5rem);
   --test-md: clamp(1rem, 4vw, 1.3rem);
 
-  --font-family: 'Nunito', sans-serif;
+  --font-family: "Nunito", sans-serif;
+}
+
+body.light {
+  --bg-color: #f5f7f8;
+  --text-color: #262626;
+  --bg-color-secondary: #e6e6e6;
+  --delete-color: #ff0015;
+  --edit-color: #2bd52b;
+
+  transition: all 0.3s ease;
 }
 
 * {
@@ -37,6 +47,44 @@ li {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.todo-chart {
+  width: clamp(170px, 30vw, 220px);
+  height: clamp(170px, 30vw, 220px);
+  margin: 1rem auto;
+}
+
+#myDoughnutChart {
+  width: 100%;
+  height: 100%;
+}
+
+section {
+  position: relative;
+}
+
+.switch-mode {
+  background-color: var(--bg-color-secondary);
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  height: min-content;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+body.light > main > .switch-mode > .sun {
+  display: block;
+}
+body.light > main > .switch-mode > .moon {
+  display: none;
 }
 
 main {
@@ -87,6 +135,10 @@ main {
   font-size: var(--test-md);
   font-weight: 500;
   cursor: pointer;
+}
+
+body.light > main > .main-container > .addTodo-container > button {
+  border: 2px solid var(--text-color);
 }
 
 .container-todos {
@@ -206,15 +258,4 @@ main {
   .todos-list > .todo > .edit-todo {
     margin-right: 0.5rem;
   }
-}
-
-.todo-chart {
-  width: clamp(150px, 30vw, 220px);
-  height: clamp(150px, 30vw, 220px);
-  margin: 1rem auto;
-}
-
-#myDoughnutChart {
-  width: 100%;
-  height: 100%;
 }

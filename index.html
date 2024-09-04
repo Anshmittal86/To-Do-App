@@ -7,10 +7,12 @@
       name="description"
       content="Manage your tasks efficiently with this intuitive TO DO app. Add, check, and remove tasks easily."
     />
+    <!-- Remix Icon  -->
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <!-- Modern CSS Normalizer  -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.0/modern-normalize.min.css"
@@ -18,13 +20,19 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet">
+    <!-- Nunito Font CDN  -->
+    <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet" />
+    <!-- Stylesheet  -->
     <link rel="stylesheet" href="./stylesheets/style.css" />
     <title>My TO DO App - Organize Your Tasks Efficiently</title>
   </head>
 
   <body>
     <main>
+      <div class="switch-mode">
+        <i class="ri-sun-line sun hidden"></i>
+        <i class="ri-contrast-2-line moon"></i>
+      </div>
       <section class="main-container">
         <div class="todo-chart">
           <canvas id="myDoughnutChart"></canvas>
@@ -41,11 +49,11 @@
           <button id="add-todo">Add</button>
         </div>
 
-        <section class="container-todos">
+        <div class="container-todos">
           <ul class="todos-list">
             <!-- To Do added by JavaScript -->
           </ul>
-        </section>
+        </div>
       </section>
     </main>
 
