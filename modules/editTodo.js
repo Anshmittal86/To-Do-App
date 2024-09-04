@@ -1,11 +1,13 @@
 // Handle editing a todo item
+import { getTodoFromLocal, setTodoAtLocal } from "./index";
+
 export function handleEdit(edit) {
   const todoItem = edit.closest(".todo");
   const todoId = parseInt(todoItem.id, 10);
   const textSpan = todoItem.querySelector(".todo-text");
   const editInput = todoItem.querySelector(".edit-input");
 
-  var todos = JSON.parse(localStorage.getItem("todos")) || [];
+  var todos = getTodoFromLocal();
 
   // Check if the todo item is completed
   const todoToEdit = todos.find((todo) => todo.id === todoId);
@@ -35,7 +37,7 @@ export function handleEdit(edit) {
         todo.id === todoId ? { ...todo, text: newText } : todo
       );
       // Save updated todos back to localStorage
-      localStorage.setItem("todos", JSON.stringify(todos));
+      setTodoAtLocal(todos);
     }
   }
 }

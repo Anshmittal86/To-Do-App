@@ -1,4 +1,7 @@
-import { todoInputEl, todoListEl, addBtnEl, switchModeEl } from "./domSelector";
+import { todoInputEl, todoListEl, addBtnEl, switchModeEl, emptyTaskMsgEl } from "./domSelector";
+import { getTodoFromLocal } from "./getTodoFromLocal";
+import { setTodoAtLocal } from "./setTodoAtLocal";
+import { toggleEmptyTodoMsg } from "./toggleEmptyTodoMsg";
 import { addToDo } from "./addTodo";
 import { createTodoElement } from "./createTodo";
 import { loadTodos } from "./loadTodos";
@@ -14,6 +17,10 @@ export {
   todoListEl,
   addBtnEl,
   switchModeEl,
+  emptyTaskMsgEl,
+  getTodoFromLocal,
+  setTodoAtLocal,
+  toggleEmptyTodoMsg,
   addToDo,
   createTodoElement,
   loadTodos,

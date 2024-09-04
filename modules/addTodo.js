@@ -1,9 +1,16 @@
-import { todoInputEl, todoListEl } from "./index";
-import { updateChartData } from "./index";
-import { createTodoElement } from "./index";
+import {
+  todoInputEl,
+  todoListEl,
+  updateChartData,
+  createTodoElement,
+  toggleEmptyTodoMsg,
+  getTodoFromLocal,
+  setTodoAtLocal,
+} from "./index";
+
 // Add a new todo item
 export function addToDo() {
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let todos = getTodoFromLocal();
   const todoText = todoInputEl.value.trim();
   if (!todoText) {
     alert("Task must be filled.");
@@ -19,11 +26,16 @@ export function addToDo() {
   };
 
   todos.push(todoObj);
-  localStorage.setItem("todos", JSON.stringify(todos));
+
+  // Set Todo at local Storage
+  setTodoAtLocal(todos);
+
   // Clear input field
   todoInputEl.value = "";
 
   // Append the new todo to the list element
   todoListEl.appendChild(createTodoElement(todoId, todoText, false));
+
+  toggleEmptyTodoMsg();
   updateChartData();
 }

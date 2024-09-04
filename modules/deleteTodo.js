@@ -1,15 +1,16 @@
-import { loadTodos } from "./index";
+import { loadTodos, toggleEmptyTodoMsg, getTodoFromLocal,
+  setTodoAtLocal, } from "./index";
 // Handle deleting a todo item
 export function handleDelete(target) {
   const todoItem = target.closest(".todo");
   const todoId = parseInt(todoItem.id, 10);
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let todos = getTodoFromLocal();;
 
   todos = todos
     .filter((todo) => todo.id !== todoId)
     .map((todo, index) => ({ ...todo, id: index })); // Reassign IDs
 
-  localStorage.setItem("todos", JSON.stringify(todos));
+    setTodoAtLocal(todos);
 
   // Clear localStorage if no one todo exist
   if (!todos.length) {
@@ -17,5 +18,6 @@ export function handleDelete(target) {
   }
 
   todoItem.remove(); // Remove from DOM
+  toggleEmptyTodoMsg();
   loadTodos(); // Rendering todo List
 }

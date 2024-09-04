@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--***************** SEO Meta Tags - START ******************-->
+    <meta name="author" content="Ansh Mittal" />
     <meta
       name="description"
       content="Manage your tasks efficiently with this intuitive TO DO app. Add, check, and remove tasks easily."
     />
+    <!--***************** SEO Meta Tags - END ******************-->
+
+    <!--***************** External Links - START ******************-->
     <!-- Remix Icon  -->
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
@@ -24,15 +30,28 @@
     <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet" />
     <!-- Stylesheet  -->
     <link rel="stylesheet" href="./stylesheets/style.css" />
+    <!--***************** External Links - END ******************-->
+
     <title>My TO DO App - Organize Your Tasks Efficiently</title>
   </head>
 
   <body>
+    <!--************* Main Section - START **************-->
     <main>
+      <!--********* Dark mode - START **************-->
       <div class="switch-mode">
         <i class="ri-sun-line sun hidden"></i>
         <i class="ri-contrast-2-line moon"></i>
       </div>
+      <!--********* Dark mode - END **************-->
+
+      <!--********* Default Message - START *********-->
+      <div class="empty-task-msg hidden">
+        <p>You don't have any Task today.</p>
+      </div>
+      <!--******** Default Message - END ************-->
+
+      <!--********* TODO Section - START ************-->
       <section class="main-container">
         <div class="todo-chart">
           <canvas id="myDoughnutChart"></canvas>
@@ -55,8 +74,9 @@
           </ul>
         </div>
       </section>
+      <!--********* TODO Section - END **************-->
     </main>
-
+    <!--************* Main Section - END **************-->
     <script type="module" src="/main.js"></script>
   </body>
 </html>

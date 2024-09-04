@@ -1,10 +1,13 @@
-import { todoListEl } from "./index";
-import { updateChartData } from "./index";
-import { createTodoElement } from "./index";
+import {
+  getTodoFromLocal,
+  createTodoElement,
+  updateChartData,
+  todoListEl,
+} from "./index";
 
 // Load todos from localStorage and display them
 export function loadTodos() {
-  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const todos = getTodoFromLocal();
 
   // Clear existing todos
   todoListEl.innerHTML = "";
