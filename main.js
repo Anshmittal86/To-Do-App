@@ -27,7 +27,9 @@ function initializeListeners() {
 }
 
 /***** Dark Mode *****/
-switchModeEl.addEventListener("click", function () {
+switchModeEl.addEventListener("click", toggleDarkMode);
+
+function toggleDarkMode() {
   document.body.classList.toggle("light");
   updateChartData();
-});
+}
