@@ -3,6 +3,7 @@ import {
   createTodoElement,
   updateChartData,
   todoListEl,
+  updateDeadlineTime,
 } from "./index";
 
 // Load todos from localStorage and display them
@@ -16,10 +17,11 @@ export function loadTodos() {
   const fragment = document.createDocumentFragment();
 
   todos.forEach((todo, index) => {
-    const { text, completed } = todo;
+    const { text, completed} = todo;
     fragment.appendChild(createTodoElement(index, text, completed));
   });
 
   todoListEl.appendChild(fragment);
   updateChartData();
+  updateDeadlineTime();
 }

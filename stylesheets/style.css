@@ -9,6 +9,7 @@
   --test-lg: clamp(1.2rem, 5.5vw, 1.5rem);
   --test-xl: clamp(1.5rem, 8.5vw, 2.5rem);
   --test-md: clamp(1rem, 4vw, 1.3rem);
+  --test-sm: clamp(0.6rem, 3vw, 1rem);
 
   --font-family: "Nunito", sans-serif;
 }
@@ -83,15 +84,6 @@ body.light {
   transition: all 0.3s ease;
 }
 
-.switch-mode > .sun,
-.switch-mode > .moon {
-  pointer-events: none;
-}
-
-section {
-  position: relative;
-}
-
 .switch-mode {
   width: 2.2rem;
   height: 2.2rem;
@@ -107,8 +99,17 @@ section {
   z-index: 2;
 }
 
+.switch-mode > .sun,
+.switch-mode > .moon {
+  pointer-events: none;
+}
+
 .hidden {
   display: none;
+}
+
+section {
+  position: relative;
 }
 
 body.light > main > .switch-mode > .sun {
@@ -154,24 +155,35 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  gap: 4px;
 }
 
 .main-container > .addTodo-container > input {
   padding: 1rem;
-  width: min(300px, 60vw);
+  width: 100%;
   border-radius: 20px;
-  background-color: transparent;
+  background-color: var(--bg-color-secondary);
   color: var(--text-color);
   font-size: var(--test-md);
 }
 
-.main-container > .addTodo-container > button {
-  padding: 0.9rem 2rem;
+.main-container > .addTodo-container > #add-todo {
+  padding: 0.7rem 1.4rem;
   background-color: var(--bg-color);
   color: var(--text-color);
   border-radius: 10px;
   font-size: var(--test-md);
   font-weight: 500;
+  cursor: pointer;
+}
+
+.main-container .addTodo-container .date-picker {
+  padding: 0.35rem;
+  border-radius: 10px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: var(--test-md);
   cursor: pointer;
 }
 
@@ -182,7 +194,7 @@ main {
 .todos-list {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.4rem;
   max-height: 350px;
   overflow: auto;
   scrollbar-width: thin;
@@ -203,10 +215,17 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.8rem;
 }
 
-.todos-list > .todo > input {
-  --size: 25px;
+@media (max-width: 465px) {
+  .todos-list > .todo {
+    gap: 0.6rem;
+  }
+}
+
+.todos-list > .todo > .todo-checkbox {
+  --size: 22px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -219,13 +238,21 @@ main {
   outline: none;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
 
-.todos-list > .todo > input[data-check="true"] {
+/* @media (max-width: 465px) {
+  .todos-list > .todo > .todo-checkbox {
+    width: 26px;
+    height: 22px;
+  }
+} */
+
+.todos-list > .todo > .todo-checkbox[data-check="true"] {
   background-color: var(--bg-check);
 }
 
-.todos-list > .todo > input[data-check="true"]::before {
+.todos-list > .todo > .todo-checkbox[data-check="true"]::before {
   --check-size: 6.5px;
   content: "";
   position: absolute;
@@ -236,14 +263,26 @@ main {
   transform: rotate(45deg);
 }
 
-.todos-list > .todo > input[data-check="true"] + span {
+.todos-list > .todo > .todo-checkbox[data-check="true"] + .todo-text {
   text-decoration: line-through;
   opacity: 0.5;
 }
 
+.todos-list .todo .todo-deadline {
+  font-size: var(--test-sm);
+  background-color: var(--bg-color-secondary);
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 0.35rem;
+  border-radius: 5px;
+  width: fit-content;
+  flex-shrink: 0;
+  letter-spacing: 0.1px;
+}
+
 .todos-list > .todo > .edit-input {
   display: none; /* Initially hidden */
-  padding: 1rem 0.5rem;
+  padding: 0.3rem;
   border-radius: 5px;
   border: 1px solid var(--bg-color-secondary);
   background-color: var(--bg-color-secondary);
@@ -256,10 +295,13 @@ main {
   border-color: var(--edit-color); /* Highlight border when focused */
 }
 
-.todos-list > .todo > span {
-  width: min(350px, 70%);
+.todos-list > .todo > .todo-text {
+  width: 100%;
   font-size: var(--test-md);
-  padding-block: 0.5rem;
+  padding: 0.3rem;
+  margin-left: -5.5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
   overflow: auto;
 }
 
@@ -286,12 +328,6 @@ main {
 .todos-list > .todo > .delete-todo > i {
   font-size: var(--test-lg);
   color: var(--delete-color);
-}
-
-@media (max-width: 578px) {
-  .todos-list > .todo > .edit-todo {
-    margin-right: 0.5rem;
-  }
 }
 
 /***************** Main Section - END ******************/

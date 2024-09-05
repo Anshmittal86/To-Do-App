@@ -1,3 +1,5 @@
+
+
 // Create a todo element
 export function createTodoElement(id, text, completed) {
   const li = document.createElement("li");
@@ -10,7 +12,8 @@ export function createTodoElement(id, text, completed) {
     <input type="checkbox" class="todo-checkbox" data-check="${isChecked}" />
     <span class="todo-text">${text}</span>
     <input type="text" class="edit-input" value="${text}" style="display:none;" />
-     <button class="edit-todo">
+    <span id="todo-deadline-${id}" class="todo-deadline"></span>
+    <button class="edit-todo">
       <i class="ri-pencil-line"></i>
     </button>
     <button class="delete-todo">

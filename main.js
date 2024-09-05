@@ -1,3 +1,5 @@
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 import {
   addBtnEl,
   todoInputEl,
@@ -13,7 +15,7 @@ import {
 
 /***** Load some function after DOM content loaded *****/
 window.addEventListener("DOMContentLoaded", function () {
-  toggleEmptyTodoMsg();
+  toggleEmptyTodoMsg(); // Show Message when todo is empty
   createChart(); // Initialize the chart
   loadTodos(); // Load todos and update the chart
   todoInputEl.focus(); // Focus Input Element
@@ -32,4 +34,22 @@ switchModeEl.addEventListener("click", toggleDarkMode);
 function toggleDarkMode() {
   document.body.classList.toggle("light");
   updateChartData();
+}
+
+/***** Initialize Flatpickr *****/
+const datePicker = flatpickr("#todoDeadline", {
+  enableTime: true,
+  dateFormat: "Y-m-dTH:i",
+  minDate: "today",
+  disableMobile: "true",
+});
+
+// Attach the function to the button click event
+document
+  .querySelector("#calendarIcon")
+  .addEventListener("click", openDatePicker);
+
+// Function to open the date picker
+function openDatePicker() {
+  datePicker.open(); // Programmatically open the date picker
 }

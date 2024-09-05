@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--***************** Browser tab theme colors - START ******************-->
+    <meta
+      name="theme-color"
+      media="(prefer-color-scheme: light)"
+      content="#f5f7f8"
+    />
+    <meta
+      name="theme-color"
+      media="(prefer-color-scheme: dark)"
+      content="#262626"
+    />
+    <!--***************** Browser tab theme colors - END ******************-->
+
     <!--***************** SEO Meta Tags - START ******************-->
     <meta name="author" content="Ansh Mittal" />
     <meta
@@ -25,6 +38,10 @@
       integrity="sha512-3axTZ/bKFZH5/qLFTl4U+mDbBDFW+5QO5L7D1HnOhlhJbcNDIVJxoNm6It77g0eUdzfKZlHirayqRC2qJaAOJw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
     <!-- Nunito Font CDN  -->
     <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet" />
@@ -65,6 +82,20 @@
             id="todo-input"
             placeholder="Task name"
           />
+          <div class="date-picker">
+            <!-- Flatpickr Input Field -->
+            <input
+              type="text"
+              id="todoDeadline"
+              placeholder="Select Date and Time"
+              class="hidden"
+            />
+
+            <!-- Label with Calendar Icon -->
+            <button type="button" class="date-picker" id="calendarIcon">
+              <i class="ri-calendar-schedule-line"></i>
+            </button>
+          </div>
           <button id="add-todo">Add</button>
         </div>
 
@@ -77,6 +108,7 @@
       <!--********* TODO Section - END **************-->
     </main>
     <!--************* Main Section - END **************-->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

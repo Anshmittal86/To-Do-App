@@ -1,42 +1,43 @@
-// Handle editing a todo item
 import { getTodoFromLocal, setTodoAtLocal } from "./index";
 
 export function handleEdit(edit) {
-  const todoItem = edit.closest(".todo");
-  const todoId = parseInt(todoItem.id, 10);
-  const textSpan = todoItem.querySelector(".todo-text");
-  const editInput = todoItem.querySelector(".edit-input");
+  const todoItem = edit.closest(".todo"); // Get the closest todo item element
+  const todoId = parseInt(todoItem.id, 10); // Extract the todo ID from the element's ID
+  const textSpan = todoItem.querySelector(".todo-text"); // Span element displaying the todo text
+  const editInput = todoItem.querySelector(".edit-input"); // Input element for editing the todo text
 
-  var todos = getTodoFromLocal();
+  let todos = getTodoFromLocal(); // Fetch the list of todos from localStorage
 
-  // Check if the todo item is completed
+  // Find the todo item to be edited
   const todoToEdit = todos.find((todo) => todo.id === todoId);
 
-  if (todoToEdit.completed === true) {
-    alert("Todo can't be edited after its completion");
-    return;
+  // Check if the todo item is completed
+  if (todoToEdit.completed) {
+    alert("Todo can't be edited after its completion"); // Alert if the todo is completed
+    return; // Exit the function
   }
 
   // Toggle between view and edit mode
   if (editInput.style.display === "none") {
     // Switch to edit mode
-    textSpan.style.display = "none";
-    editInput.style.display = "inline";
-    editInput.focus();
+    textSpan.style.display = "none"; // Hide the text span
+    editInput.style.display = "inline"; // Show the edit input
+    editInput.focus(); // Focus on the edit input
 
-    // Move cursor at the end of text
+    // Move cursor to the end of the text in the input
     editInput.setSelectionRange(editInput.value.length, editInput.value.length);
   } else {
     // Save the changes and switch back to view mode
-    const newText = editInput.value.trim();
+    const newText = editInput.value.trim(); // Get the trimmed new text
     if (newText) {
-      textSpan.textContent = newText;
-      textSpan.style.display = "inline";
-      editInput.style.display = "none";
-      todos = todos.map((todo) =>
-        todo.id === todoId ? { ...todo, text: newText } : todo
+      // If there is new text
+      textSpan.textContent = newText; // Update the text span with the new text
+      textSpan.style.display = "inline"; // Show the updated text span
+      editInput.style.display = "none"; // Hide the edit input
+      todos = todos.map(
+        (todo) => (todo.id === todoId ? { ...todo, text: newText } : todo) // Update the todo with the new text
       );
-      // Save updated todos back to localStorage
+      // Save the updated todos back to localStorage
       setTodoAtLocal(todos);
     }
   }
