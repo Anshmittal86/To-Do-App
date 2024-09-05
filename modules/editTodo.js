@@ -1,4 +1,5 @@
 import { getTodoFromLocal, setTodoAtLocal } from "./index";
+import Swal from "sweetalert2";
 
 export function handleEdit(edit) {
   const todoItem = edit.closest(".todo"); // Get the closest todo item element
@@ -13,7 +14,11 @@ export function handleEdit(edit) {
 
   // Check if the todo item is completed
   if (todoToEdit.completed) {
-    alert("Todo can't be edited after its completion"); // Alert if the todo is completed
+    Swal.fire({
+      icon: "info",
+      title: "Oops...",
+      text: "Todo can't be edited after its completion!",
+    });
     return; // Exit the function
   }
 

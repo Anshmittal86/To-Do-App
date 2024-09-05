@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import {
   todoInputEl,
   todoListEl,
@@ -37,13 +38,21 @@ export function addToDo() {
 
   // Validate that the task text is not empty
   if (!todoText) {
-    alert("Task must be filled."); // Alert if the task is empty
+    Swal.fire({
+      icon: "info",
+      title: "Oops...",
+      text: "Task must be filled!",
+    }); // Alert if the task is empty
     return;
   }
 
   // Validate that a deadline has been selected
   if (!todoDeadline) {
-    alert("No deadline selected."); // Alert if no deadline is selected
+    Swal.fire({
+      icon: "warning",
+      title: "Oops...",
+      text: "No deadline selected!",
+    }); // Alert if no deadline is selected
     return;
   }
 
