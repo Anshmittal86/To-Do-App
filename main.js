@@ -53,3 +53,4 @@ document
 function openDatePicker() {
   datePicker.open(); // Programmatically open the date picker
 }
+

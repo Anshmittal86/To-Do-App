@@ -4,12 +4,13 @@ import {
   updateChartData,
   todoListEl,
   updateDeadlineTime,
+  disableTodo,
+  disabledTodoOnLoad,
 } from "./index";
 
 // Load todos from localStorage and display them
 export function loadTodos() {
   const todos = getTodoFromLocal();
-
   // Clear existing todos
   todoListEl.innerHTML = "";
 
@@ -17,11 +18,14 @@ export function loadTodos() {
   const fragment = document.createDocumentFragment();
 
   todos.forEach((todo, index) => {
-    const { text, completed} = todo;
-    fragment.appendChild(createTodoElement(index, text, completed));
+    const { text, completed, elapsedTime } = todo;
+    fragment.appendChild(
+      createTodoElement(index, text, completed, elapsedTime)
+    );
   });
 
   todoListEl.appendChild(fragment);
   updateChartData();
   updateDeadlineTime();
+  disabledTodoOnLoad();
 }

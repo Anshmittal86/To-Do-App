@@ -6,6 +6,7 @@ export function handleEdit(edit) {
   const todoId = parseInt(todoItem.id, 10); // Extract the todo ID from the element's ID
   const textSpan = todoItem.querySelector(".todo-text"); // Span element displaying the todo text
   const editInput = todoItem.querySelector(".edit-input"); // Input element for editing the todo text
+  const editBtn = todoItem.querySelector(".edit-todo");
 
   let todos = getTodoFromLocal(); // Fetch the list of todos from localStorage
 
@@ -13,11 +14,11 @@ export function handleEdit(edit) {
   const todoToEdit = todos.find((todo) => todo.id === todoId);
 
   // Check if the todo item is completed
-  if (todoToEdit.completed) {
+  if (editBtn.getAttribute("class").includes("disabled")) {
     Swal.fire({
       icon: "info",
       title: "Oops...",
-      text: "Todo can't be edited after its completion!",
+      text: "You can't edit this todo.!",
     });
     return; // Exit the function
   }

@@ -19,6 +19,7 @@ function createTodoObject(id, text, currentTime, deadlineTime) {
     completed: false, // Status of the todo (false by default)
     createdAt: currentTime, // Timestamp indicating when the todo was created
     deadline: deadlineTime, // Timestamp representing the todo deadline
+    elapsedTime: "",
   };
 }
 
@@ -49,7 +50,7 @@ export function addToDo() {
   // Validate that a deadline has been selected
   if (!todoDeadline) {
     Swal.fire({
-      icon: "warning",
+      icon: "info",
       title: "Oops...",
       text: "No deadline selected!",
     }); // Alert if no deadline is selected

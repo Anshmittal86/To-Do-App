@@ -1,4 +1,4 @@
-import { getTodoFromLocal } from "./index";
+import { getTodoFromLocal, disableTodo } from "./index";
 import { intervalToDuration } from "date-fns";
 
 export function updateDeadlineTime() {
@@ -17,15 +17,15 @@ export function updateDeadlineTime() {
     });
 
     if (duration.years > 0) {
-      return `${duration.years}y`;
+      return `${duration.years}y ${duration.months ?? 0}m`;
     } else if (duration.months > 0) {
-      return `${duration.months}m`;
+      return `${duration.months}m ${duration.days ?? 0}d`;
     } else if (duration.days > 0) {
-      return `${duration.days}d`;
+      return `${duration.days}d ${duration.hours ?? 0}h`;
     } else if (duration.hours > 0) {
-      return `${duration.hours}h`;
+      return `${duration.hours}h ${duration.minutes ?? 0}min`;
     } else if (duration.minutes > 0) {
-      return `${duration.minutes}min`;
+      return `${duration.minutes}min ${duration.seconds ?? 0}s`;
     } else if (duration.seconds > 0) {
       return `${duration.seconds}s`;
     } else {
@@ -41,15 +41,25 @@ export function updateDeadlineTime() {
     }
 
     todos.forEach((todo) => {
+      if (todo.elapsedTime) {
+        return;
+      }
+
       let timeElement = timeElements[todo.id];
+
       if (!timeElement) {
         timeElement = document.querySelector(`#todo-deadline-${todo.id}`);
         timeElements[todo.id] = timeElement;
       }
       if (timeElement) {
         const newTime = getTimeLeft(todo.deadline);
+
         if (timeElement.textContent !== newTime) {
           timeElement.textContent = newTime;
+
+          if (newTime === "Time's Up") {
+            disableTodo(todo.id);
+          }
         }
       }
     });

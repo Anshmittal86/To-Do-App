@@ -42,6 +42,10 @@ li {
   border: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .todo-chart {
   width: clamp(170px, 30vw, 220px);
   height: clamp(170px, 30vw, 220px);
@@ -102,10 +106,6 @@ body.light {
 .switch-mode > .sun,
 .switch-mode > .moon {
   pointer-events: none;
-}
-
-.hidden {
-  display: none;
 }
 
 section {
@@ -241,12 +241,11 @@ main {
   flex-shrink: 0;
 }
 
-/* @media (max-width: 465px) {
-  .todos-list > .todo > .todo-checkbox {
-    width: 26px;
-    height: 22px;
-  }
-} */
+.todos-list > .todo > .todo-checkbox.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 
 .todos-list > .todo > .todo-checkbox[data-check="true"] {
   background-color: var(--bg-check);
@@ -315,8 +314,13 @@ main {
   transition: opacity 0.1s ease;
 }
 
+.todos-list > .todo > .edit-todo.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .todos-list > .todo > .delete-todo:hover,
-.todos-list > .todo > .edit-todo:hover {
+.todos-list > .todo > .edit-todo:not(.disabled):hover {
   opacity: 0.9;
 }
 
