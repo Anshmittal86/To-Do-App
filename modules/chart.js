@@ -9,14 +9,24 @@ const ctx = document.getElementById("myDoughnutChart").getContext("2d");
 let myDoughnutChart; // Global chart instance
 
 // Create Chart
+/**
+ * This function creates a Doughnut chart using the Chart.js library.
+ * The chart is created with a fixed width and height, and is responsive.
+ * The chart displays the total number of todos, the number of completed todos,
+ * and the number of expired todos as a percentage of the total.
+ * The chart also displays a label with the completed todos count
+ * and the total todos count in the center of the chart.
+ *
+ * @param {object} ctx - The canvas context to render the chart on
+ */
 export function createChart() {
-  // Initial chart data
   const initialData = {
     labels: ["Complete", "Incomplete", "Expired"],
     datasets: [
       {
         label: "To do Chart",
-        data: [0, 0, 0], // Initial data values
+        // The initial data is set to 0 for all categories
+        data: [0, 0, 0],
         backgroundColor: ["#28a745", "#B4B4B3", "#FFB200"],
         borderWidth: 1,
       },
@@ -26,41 +36,36 @@ export function createChart() {
 
   const centerTextPlugin = {
     id: "centerText",
+    /**
+     * This function is called before the chart is drawn.
+     * It renders a label with the completed todos count and the total todos count
+     * in the center of the chart.
+     *
+     * @param {object} chart - The chart object
+     */
     beforeDraw: (chart) => {
       const { ctx, width, height } = chart;
-      const chartWidth = width;
-      const chartHeight = height;
-
-      // Calculate the center of the chart
-      const centerX = chartWidth / 2;
-      const centerY = chartHeight / 2;
-      var doughtNutTextColor = "#f4f4f4";
-      if (document.body.classList.contains("light")) {
-        doughtNutTextColor = "#262626";
-      }
-
-      let lineHeight = 24; // Adjust line height as needed
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const textColor = document.body.classList.contains("light") ? "#262626" : "#f4f4f4";
 
       ctx.save();
-      ctx.font = `bold 16px Nunito`;
+      ctx.font = "bold 16px Nunito";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = doughtNutTextColor;
+      ctx.fillStyle = textColor;
 
-      // Retrieve data from chart options
-      const todoLength = chart.options.plugins.centerTextPlugin.todoLength || 0;
-      const noOfComplete =
-        chart.options.plugins.centerTextPlugin.noOfComplete || 0;
+      const { totalTodos, completedTodos } = chart.options.plugins.centerTextPlugin;
 
-      // Draw the percentage text
+      // Render the completed todos count and the total todos count
       ctx.fillText(
-        `${noOfComplete} / ${todoLength}`,
+        `${completedTodos} / ${totalTodos}`,
         centerX,
-        centerY - lineHeight / 2
+        centerY - 24 / 2
       );
 
-      // Draw the additional text below the percentage
-      ctx.fillText("Task done", centerX, centerY + lineHeight / 2);
+      // Render the label "Task done"
+      ctx.fillText("Task done", centerX, centerY + 24 / 2);
 
       ctx.restore();
     },
@@ -75,55 +80,58 @@ export function createChart() {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          display: false, // Disable the legend
+          display: false,
         },
         tooltip: {
           callbacks: {
-            label: function (tooltipItem) {
-              // Calculate the percentage for each slice
-              const total = tooltipItem.dataset.data.reduce(
-                (acc, val) => acc + val,
-                0
-              );
+            label: (tooltipItem) => {
+              const total = tooltipItem.dataset.data.reduce((acc, val) => acc + val, 0);
               const percentage = ((tooltipItem.raw / total) * 100).toFixed(2);
+              // Format the tooltip label to display the percentage
               return `${tooltipItem.label}: ${percentage}%`;
             },
-            title: function () {
-              return ""; // Remove the title in the tooltip
-            },
+            title: () => "",
           },
         },
         centerTextPlugin,
       },
     },
-    plugins: [centerTextPlugin], // Add the plugin to the chart
+    plugins: [centerTextPlugin],
   });
 }
 
 // Update Chart
+/**
+ * This function takes in the total number of todos, the number of incomplete
+ * todos, the number of completed todos, and the number of expired todos as
+ * parameters. It then calculates the percentage of each type of todo and
+ * updates the chart with the new data.
+ *
+ * @param {number} totalTodos - The total number of todos
+ * @param {number} incompleteTodos - The number of incomplete todos
+ * @param {number} completedTodos - The number of completed todos
+ * @param {number} expiredTodos - The number of expired todos
+ */
 export function updateChart(
-  todoLength,
-  noOfIncomplete,
-  noOfComplete,
-  noOfExpired
+  totalTodos,
+  incompleteTodos,
+  completedTodos,
+  expiredTodos
 ) {
   if (!myDoughnutChart) return; // Ensure chart is initialized
 
-  // Calculate the percentage of completed todos
-  const incompleteTodosPercentage = (noOfIncomplete * 100) / todoLength;
-  const completedTodosPercentage = (noOfComplete * 100) / todoLength;
-  const expiredTodosPercentage = (noOfExpired * 100) / todoLength;
+  // Calculate the percentage of each type of todo
+  const incompletePercentage = (incompleteTodos / totalTodos) * 100;
+  const completedPercentage = (completedTodos / totalTodos) * 100;
+  const expiredPercentage = (expiredTodos / totalTodos) * 100;
 
+  // Create a new dataset with the updated percentages
   const newData = {
     labels: ["Complete", "Incomplete", "Expired"],
     datasets: [
       {
         label: "To do Chart",
-        data: [
-          completedTodosPercentage,
-          incompleteTodosPercentage,
-          expiredTodosPercentage,
-        ],
+        data: [completedPercentage, incompletePercentage, expiredPercentage],
         backgroundColor: ["#28a745", "#B4B4B3", "#FFB200"],
         borderWidth: 1,
       },
@@ -131,13 +139,14 @@ export function updateChart(
     hoverOffset: 4,
   };
 
-  // Update chart with new data
+  // Update the chart with the new dataset
   myDoughnutChart.data = newData;
 
-  // Update plugin data
-  myDoughnutChart.options.plugins.centerTextPlugin.todoLength = todoLength;
-  myDoughnutChart.options.plugins.centerTextPlugin.noOfComplete = noOfComplete;
+  // Update the plugin data
+  myDoughnutChart.options.plugins.centerTextPlugin.totalTodos = totalTodos;
+  myDoughnutChart.options.plugins.centerTextPlugin.completedTodos = completedTodos;
 
+  // Update the chart
   myDoughnutChart.update(); // Call update to refresh the chart
 }
 

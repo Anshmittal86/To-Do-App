@@ -1,52 +1,55 @@
-// Create a todo element
-export function createTodoElement(id, text, completed, elapsedTime, expired) {
-  const li = document.createElement("li");
-  const checkbox = document.createElement("input");
-  const todoText = document.createElement("span");
-  const editInput = document.createElement("input");
-  const deadline = document.createElement("span");
-  const editBtn = document.createElement("button");
-  const deleteBtn = document.createElement("button");
 
-  li.className = "todo";
-  li.id = id;
+export function createTodoElement(
+  todoId,
+  todoTextContent,
+  isCompleted,
+  elapsedTimeValue,
+  isExpired
+) {
+  const todoElement = document.createElement("li"); // Create a new list item element
+  const checkboxElement = document.createElement("input"); // Create a new input element for the checkbox
+  const textElement = document.createElement("span"); // Create a new span element for the todo text
+  const editInputElement = document.createElement("input"); // Create a new input element for the edit input
+  const deadlineElement = document.createElement("span"); // Create a new span element for the deadline
+  const editButtonElement = document.createElement("button"); // Create a new button element for the edit button
+  const deleteButtonElement = document.createElement("button"); // Create a new button element for the delete button
+  const isChecked = isCompleted ? "true" : "false";
+  todoElement.className = "todo"; // Set the class name to "todo"
+  todoElement.id = todoId; // Set the ID of the element to the todo ID
 
-  checkbox.type = "checkbox";
-  checkbox.className = "todo-checkbox";
-  checkbox.dataset.check = completed ? "true" : "false";
+  checkboxElement.type = "checkbox"; // Set the input type to "checkbox"
+  checkboxElement.className = "todo-checkbox"; // Set the class name to "todo-checkbox"
+  checkboxElement.setAttribute("data-check", `${isChecked}`); // Set the data-checked attribute to "true" or "false" based on the isCompleted parameter
 
-  todoText.className = "todo-text";
-  todoText.textContent = text;
+  textElement.className = "todo-text"; // Set the class name to "todo-text"
+  textElement.textContent = todoTextContent; // Set the text content of the element to the todo text content
 
-  editInput.type = "text";
-  editInput.className = "edit-input";
-  editInput.value = text;
-  editInput.style.display = "none";
+  editInputElement.type = "text"; // Set the input type to "text"
+  editInputElement.className = "edit-input"; // Set the class name to "edit-input"
+  editInputElement.value = todoTextContent; // Set the value of the input to the todo text content
+  editInputElement.style.display = "none"; // Hide the edit input by default
 
-  deadline.className = "todo-deadline";
-  deadline.id = `todo-deadline-${id}`;
+  deadlineElement.className = "todo-deadline"; // Set the class name to "todo-deadline"
+  deadlineElement.id = `todo-deadline-${todoId}`; // Set the ID of the element to the todo ID with "-deadline" appended
 
-  let remainTime;
-  if (elapsedTime !== null && elapsedTime !== undefined) {
-    remainTime = `in ${elapsedTime}`;
-  } else {
-    remainTime = "";
-  }
+  deadlineElement.textContent = isExpired
+    ? "Expire"
+    : elapsedTimeValue
+    ? `in ${elapsedTimeValue}`
+    : ""; // Set the text content of the element to the elapsed time value or "Expire" if the todo is expired
 
-  deadline.textContent = expired ? "Expire" : remainTime || "";
+  editButtonElement.className = "edit-todo"; // Set the class name to "edit-todo"
+  editButtonElement.innerHTML = `<i class="ri-pencil-line"></i>`; // Set the inner HTML of the button to a pencil icon
 
-  editBtn.className = "edit-todo";
-  editBtn.innerHTML = `<i class="ri-pencil-line"></i>`;
+  deleteButtonElement.className = "delete-todo"; // Set the class name to "delete-todo"
+  deleteButtonElement.innerHTML = `<i class="ri-delete-bin-line"></i>`; // Set the inner HTML of the button to a delete icon
 
-  deleteBtn.className = "delete-todo";
-  deleteBtn.innerHTML = `<i class="ri-delete-bin-line"></i>`;
+  todoElement.appendChild(checkboxElement); // Append the checkbox element to the todo element
+  todoElement.appendChild(textElement); // Append the text element to the todo element
+  todoElement.appendChild(editInputElement); // Append the edit input element to the todo element
+  todoElement.appendChild(deadlineElement); // Append the deadline element to the todo element
+  todoElement.appendChild(editButtonElement); // Append the edit button element to the todo element
+  todoElement.appendChild(deleteButtonElement); // Append the delete button element to the todo element
 
-  li.appendChild(checkbox);
-  li.appendChild(todoText);
-  li.appendChild(editInput);
-  li.appendChild(deadline);
-  li.appendChild(editBtn);
-  li.appendChild(deleteBtn);
-
-  return li;
+  return todoElement; // Return the newly created todo element
 }

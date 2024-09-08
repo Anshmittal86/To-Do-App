@@ -1,3 +1,3 @@
-export function setTodoAtLocal(updatedTodos) {
+export function setTodoInLocalStorage(updatedTodos) {
   localStorage.setItem("todos", JSON.stringify(updatedTodos));
 }

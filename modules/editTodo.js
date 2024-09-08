@@ -1,4 +1,4 @@
-import { getTodoFromLocal, setTodoAtLocal } from "./index";
+import { getTodoFromLocalStorage, setTodoInLocalStorage } from "./index";
 import Swal from "sweetalert2";
 
 export function handleEdit(edit) {
@@ -8,7 +8,7 @@ export function handleEdit(edit) {
   const editInput = todoItem.querySelector(".edit-input"); // Input element for editing the todo text
   const editBtn = todoItem.querySelector(".edit-todo");
 
-  let todos = getTodoFromLocal(); // Fetch the list of todos from localStorage
+  let todos = getTodoFromLocalStorage(); // Fetch the list of todos from localStorage
 
   // Find the todo item to be edited
   const todoToEdit = todos.find((todo) => todo.id === todoId);
@@ -44,7 +44,7 @@ export function handleEdit(edit) {
         (todo) => (todo.id === todoId ? { ...todo, text: newText } : todo) // Update the todo with the new text
       );
       // Save the updated todos back to localStorage
-      setTodoAtLocal(todos);
+      setTodoInLocalStorage(todos);
     }
   }
 }

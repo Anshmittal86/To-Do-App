@@ -8,8 +8,8 @@ import {
   expiredTodoListEl,
   expiredTodoEl,
 } from "./domSelector";
-import { getTodoFromLocal } from "./getTodoFromLocal";
-import { setTodoAtLocal } from "./setTodoAtLocal";
+import { getTodoFromLocalStorage } from "./getTodoFromLocalStorage";
+import { setTodoInLocalStorage } from "./setTodoInLocalStorage";
 import { toggleEmptyTodoMsg } from "./toggleEmptyTodoMsg";
 import { toggleExpiredSectionVisibility } from "./toggleExpiredSectionVisibility";
 import { addToDo } from "./addTodo";
@@ -23,7 +23,7 @@ import { handleDelete } from "./deleteTodo";
 import { handleEdit } from "./editTodo";
 import { handleClick } from "./handClick";
 import { disableTodo } from "./disableTodo";
-import { disabledTodoOnLoad } from "./disableTodoOnLoad";
+import { disableCompletedAndExpiredTodosOnLoad } from "./disableCompletedAndExpiredTodosOnLoad";
 import { createChart, updateChartData } from "./chart";
 
 export {
@@ -35,8 +35,8 @@ export {
   todoDeadlineInputEl,
   expiredTodoListEl,
   expiredTodoEl,
-  getTodoFromLocal,
-  setTodoAtLocal,
+  getTodoFromLocalStorage,
+  setTodoInLocalStorage,
   toggleEmptyTodoMsg,
   toggleExpiredSectionVisibility,
   addToDo,
@@ -52,5 +52,5 @@ export {
   createChart,
   updateChartData,
   disableTodo,
-  disabledTodoOnLoad,
+  disableCompletedAndExpiredTodosOnLoad,
 };

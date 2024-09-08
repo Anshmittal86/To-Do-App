@@ -1,7 +1,7 @@
-import { emptyTaskMsgEl, getTodoFromLocal } from "./index";
+import { emptyTaskMsgEl, getTodoFromLocalStorage } from "./index";
 
 export function toggleEmptyTodoMsg() {
-  let todos = getTodoFromLocal();
+  let todos = getTodoFromLocalStorage();
   let todosLength = todos.length;
 
   if (!todosLength) {

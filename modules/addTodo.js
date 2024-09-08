@@ -6,8 +6,8 @@ import {
   updateChartData,
   createTodoElement,
   toggleEmptyTodoMsg,
-  getTodoFromLocal,
-  setTodoAtLocal,
+  getTodoFromLocalStorage,
+  setTodoInLocalStorage,
   updateDeadlineTime,
 } from "./index";
 
@@ -26,7 +26,7 @@ function createTodoObject(id, text, currentTime, deadlineTime) {
 
 export function addToDo() {
   // Fetch existing todos from local storage
-  const existingTodos = getTodoFromLocal() || [];
+  const existingTodos = getTodoFromLocalStorage() || [];
   // Trim the input text to remove any whitespace
   const todoInput = todoInputEl.value.trim();
   // Get the selected deadline value
@@ -52,7 +52,7 @@ export function addToDo() {
   );
 
   // Add the new todo to the existing list and save to local storage
-  setTodoAtLocal([...existingTodos, newTodo]);
+  setTodoInLocalStorage([...existingTodos, newTodo]);
 
   // Clear the input fields
   todoInputEl.value = "";

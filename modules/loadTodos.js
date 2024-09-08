@@ -1,18 +1,18 @@
 import {
-  getTodoFromLocal,
+  getTodoFromLocalStorage,
   createTodoElement,
   updateChartData,
   todoListEl,
   expiredTodoListEl,
   updateDeadlineTime,
-  disabledTodoOnLoad,
+  disableCompletedAndExpiredTodosOnLoad,
   toggleEmptyTodoMsg,
   toggleExpiredSectionVisibility,
 } from "./index";
 
 // Load todos from localStorage and display them
 export function loadTodos() {
-  const todos = getTodoFromLocal();
+  const todos = getTodoFromLocalStorage();
 
   if (!todos) {
     toggleEmptyTodoMsg();
@@ -46,5 +46,5 @@ export function loadTodos() {
   toggleExpiredSectionVisibility();
   updateChartData();
   updateDeadlineTime();
-  disabledTodoOnLoad();
+  disableCompletedAndExpiredTodosOnLoad();
 }

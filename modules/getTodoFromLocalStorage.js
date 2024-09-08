@@ -1,3 +1,3 @@
-export function getTodoFromLocal() {
+export function getTodoFromLocalStorage() {
   return JSON.parse(localStorage.getItem("todos")) || [];
 }

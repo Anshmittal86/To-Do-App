@@ -1,14 +1,14 @@
 import {
-  getTodoFromLocal,
+  getTodoFromLocalStorage,
   disableTodo,
-  setTodoAtLocal,
+  setTodoInLocalStorage,
   updateChartData,
   toggleExpiredSectionVisibility,
 } from "./index";
 import { intervalToDuration } from "date-fns";
 
 export function updateDeadlineTime() {
-  let todos = getTodoFromLocal();
+  let todos = getTodoFromLocalStorage();
   let timerId;
 
   // Cache DOM elements
@@ -42,7 +42,7 @@ export function updateDeadlineTime() {
   function updateTodoTimes() {
     let chartNeedsUpdate = false; // Flag to track if chart needs update
 
-    todos = getTodoFromLocal(); // Optional: Re-fetch todos to reflect updates
+    todos = getTodoFromLocalStorage(); // Optional: Re-fetch todos to reflect updates
     if (!todos.length) {
       clearInterval(timerId);
       return;
@@ -84,7 +84,7 @@ export function updateDeadlineTime() {
       }
     });
 
-    setTodoAtLocal(todos);
+    setTodoInLocalStorage(todos);
 
     // Update chart only if necessary
     if (chartNeedsUpdate) {
