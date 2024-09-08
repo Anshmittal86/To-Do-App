@@ -12,15 +12,16 @@ let myDoughnutChart; // Global chart instance
 export function createChart() {
   // Initial chart data
   const initialData = {
+    labels: ["Complete", "Incomplete", "Expired"],
     datasets: [
       {
         label: "To do Chart",
-        data: [0, 0], // Initial data values
-        backgroundColor: ["rgb(128,128,128)", "rgb(50, 205, 50)"],
-        borderColor: ["rgb(65, 63, 66)", "rgb(57, 153, 24)"],
+        data: [0, 0, 0], // Initial data values
+        backgroundColor: ["#28a745", "#B4B4B3", "#FFB200"],
         borderWidth: 1,
       },
     ],
+    hoverOffset: 4,
   };
 
   const centerTextPlugin = {
@@ -74,7 +75,7 @@ export function createChart() {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: "top",
+          display: false, // Disable the legend
         },
         tooltip: {
           callbacks: {
@@ -87,6 +88,9 @@ export function createChart() {
               const percentage = ((tooltipItem.raw / total) * 100).toFixed(2);
               return `${tooltipItem.label}: ${percentage}%`;
             },
+            title: function () {
+              return ""; // Remove the title in the tooltip
+            },
           },
         },
         centerTextPlugin,
@@ -97,41 +101,74 @@ export function createChart() {
 }
 
 // Update Chart
-export function updateChart(todoLength, noOfComplete) {
+export function updateChart(
+  todoLength,
+  noOfIncomplete,
+  noOfComplete,
+  noOfExpired
+) {
   if (!myDoughnutChart) return; // Ensure chart is initialized
 
   // Calculate the percentage of completed todos
-  const completedPercentage = (noOfComplete / todoLength) * 100;
-  const remainingPercentage = 100 - completedPercentage;
+  const incompleteTodosPercentage = (noOfIncomplete * 100) / todoLength;
+  const completedTodosPercentage = (noOfComplete * 100) / todoLength;
+  const expiredTodosPercentage = (noOfExpired * 100) / todoLength;
 
   const newData = {
+    labels: ["Complete", "Incomplete", "Expired"],
     datasets: [
       {
         label: "To do Chart",
-        data: [completedPercentage, remainingPercentage],
-        backgroundColor: ["rgb(50, 205, 50)", "rgb(128,128,128)"],
-        borderColor: ["rgb(57, 153, 24)", "rgb(115, 115, 115"],
+        data: [
+          completedTodosPercentage,
+          incompleteTodosPercentage,
+          expiredTodosPercentage,
+        ],
+        backgroundColor: ["#28a745", "#B4B4B3", "#FFB200"],
         borderWidth: 1,
       },
     ],
+    hoverOffset: 4,
   };
 
   // Update chart with new data
   myDoughnutChart.data = newData;
 
   // Update plugin data
-  myDoughnutChart.options.plugins.centerTextPlugin.noOfComplete = noOfComplete;
   myDoughnutChart.options.plugins.centerTextPlugin.todoLength = todoLength;
+  myDoughnutChart.options.plugins.centerTextPlugin.noOfComplete = noOfComplete;
 
   myDoughnutChart.update(); // Call update to refresh the chart
 }
 
 // Update Chart Data
+/**
+ * This function updates the chart data by fetching the current state of the
+ * todos from local storage, and then calculating the number of completed and
+ * incomplete todos. It then calls the updateChart function to update the chart
+ * with the new data.
+ */
 export function updateChartData() {
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
-  let length = todos.length;
-  let complete = todos.filter((todo) => todo.completed).length;
+  // Get the current state of the todos from local storage
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const todoCount = todos.length;
 
-  // Call updateChart with the new length and completed todos
-  updateChart(length, complete);
+  // Calculate the number of incomplete todos
+  const incompleteTodos = todos.filter(
+    (todo) => !todo.completed && !todo.expired
+  ).length;
+
+  // Calculate the number of completed todos
+  const completedTodos = todos.filter((todo) => todo.completed).length;
+
+  // Calculate the number of expired todos
+  const expiredTodos = todos.filter((todo) => todo.expired).length;
+
+  // Call the updateChart function to update the chart with the new data
+  updateChart(
+    todoCount,
+    incompleteTodos,
+    completedTodos,
+    expiredTodos
+  );
 }

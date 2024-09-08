@@ -187,8 +187,15 @@ main {
   cursor: pointer;
 }
 
-.container-todos {
+/* Todos Container  */
+
+.container-todos,
+.container-expiredTodos {
   margin-top: 2rem;
+}
+
+.container-expiredTodos .todos-list {
+  margin-top: 1.5rem;
 }
 
 .todos-list {
@@ -245,7 +252,6 @@ main {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 
 .todos-list > .todo > .todo-checkbox[data-check="true"] {
   background-color: var(--bg-check);
@@ -332,6 +338,14 @@ main {
 .todos-list > .todo > .delete-todo > i {
   font-size: var(--test-lg);
   color: var(--delete-color);
+}
+
+/* Expired todos Container  */
+
+.container-expiredTodos h2 {
+  font-size: var(--test-lg);
+  font-weight: 800;
+  color: var(--text-color);
 }
 
 /***************** Main Section - END ******************/

@@ -1,4 +1,10 @@
-import { getTodoFromLocal, disableTodo } from "./index";
+import {
+  getTodoFromLocal,
+  disableTodo,
+  setTodoAtLocal,
+  updateChartData,
+  toggleExpiredSectionVisibility,
+} from "./index";
 import { intervalToDuration } from "date-fns";
 
 export function updateDeadlineTime() {
@@ -29,11 +35,13 @@ export function updateDeadlineTime() {
     } else if (duration.seconds > 0) {
       return `${duration.seconds}s`;
     } else {
-      return "Time's Up";
+      return "Expire";
     }
   }
 
   function updateTodoTimes() {
+    let chartNeedsUpdate = false; // Flag to track if chart needs update
+
     todos = getTodoFromLocal(); // Optional: Re-fetch todos to reflect updates
     if (!todos.length) {
       clearInterval(timerId);
@@ -41,28 +49,47 @@ export function updateDeadlineTime() {
     }
 
     todos.forEach((todo) => {
-      if (todo.elapsedTime) {
-        return;
+      if (todo.elapsedTime || todo.expired) {
+        return; // Skip already processed or expired todos
       }
 
       let timeElement = timeElements[todo.id];
-
       if (!timeElement) {
         timeElement = document.querySelector(`#todo-deadline-${todo.id}`);
         timeElements[todo.id] = timeElement;
       }
+
       if (timeElement) {
         const newTime = getTimeLeft(todo.deadline);
-
         if (timeElement.textContent !== newTime) {
           timeElement.textContent = newTime;
-
-          if (newTime === "Time's Up") {
+          if (newTime === "Expire") {
+            todo.expired = true;
             disableTodo(todo.id);
+
+            // Move to expired section
+            const todoElement = document.getElementById(`${todo.id}`);
+
+            if (todoElement) {
+              todoElement.remove();
+              const expiredList = document.querySelector(
+                ".container-expiredTodos .todos-list"
+              );
+              expiredList.appendChild(todoElement);
+              toggleExpiredSectionVisibility();
+              chartNeedsUpdate = true; // set Flag if chart needs to be updated
+            }
           }
         }
       }
     });
+
+    setTodoAtLocal(todos);
+
+    // Update chart only if necessary
+    if (chartNeedsUpdate) {
+      updateChartData();
+    }
   }
 
   if (todos.length) {

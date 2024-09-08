@@ -3,6 +3,7 @@ import {
   toggleEmptyTodoMsg,
   getTodoFromLocal,
   setTodoAtLocal,
+  updateDeadlineTime
 } from "./index";
 
 // Handle deleting a todo item
@@ -29,6 +30,10 @@ export function handleDelete(target) {
 
   // Rendering todo List with new IDs
   loadTodos();
+
+  // Update deadlines and expired section visibility
+  updateDeadlineTime(); // Ensure the expired todos section is updated
+
 
   // Clear localStorage if no one todo exist
   if (!updatedTodos.length) {

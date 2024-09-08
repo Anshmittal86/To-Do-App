@@ -3,28 +3,47 @@ import {
   createTodoElement,
   updateChartData,
   todoListEl,
+  expiredTodoListEl,
   updateDeadlineTime,
-  disableTodo,
   disabledTodoOnLoad,
+  toggleEmptyTodoMsg,
+  toggleExpiredSectionVisibility,
 } from "./index";
 
 // Load todos from localStorage and display them
 export function loadTodos() {
   const todos = getTodoFromLocal();
+
+  if (!todos) {
+    toggleEmptyTodoMsg();
+    return;
+  }
+
   // Clear existing todos
   todoListEl.innerHTML = "";
+  expiredTodoListEl.innerHTML = "";
 
   // Create a DocumentFragment to optimize DOM manipulation
-  const fragment = document.createDocumentFragment();
+  const fragmentMain = document.createDocumentFragment();
+  const fragmentExpired = document.createDocumentFragment();
 
   todos.forEach((todo, index) => {
-    const { text, completed, elapsedTime } = todo;
-    fragment.appendChild(
-      createTodoElement(index, text, completed, elapsedTime)
-    );
+    const { text, completed, elapsedTime, expired } = todo;
+    const todoElement = createTodoElement(index, text, completed, elapsedTime, expired);
+
+    if (expired) {
+      fragmentExpired.appendChild(todoElement);
+    } else {
+      fragmentMain.appendChild(todoElement);
+    }
   });
 
-  todoListEl.appendChild(fragment);
+  // Append elements to their respective lists
+  todoListEl.appendChild(fragmentMain);
+  expiredTodoListEl.appendChild(fragmentExpired);
+
+  toggleEmptyTodoMsg();
+  toggleExpiredSectionVisibility();
   updateChartData();
   updateDeadlineTime();
   disabledTodoOnLoad();

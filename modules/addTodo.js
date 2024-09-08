@@ -20,72 +20,53 @@ function createTodoObject(id, text, currentTime, deadlineTime) {
     createdAt: currentTime, // Timestamp indicating when the todo was created
     deadline: deadlineTime, // Timestamp representing the todo deadline
     elapsedTime: "",
+    expired: false,
   };
 }
 
-// Main function to add a new todo item
 export function addToDo() {
-  // Fetch existing todos from localStorage
-  let todos = getTodoFromLocal();
+  // Fetch existing todos from local storage
+  const existingTodos = getTodoFromLocal() || [];
+  // Trim the input text to remove any whitespace
+  const todoInput = todoInputEl.value.trim();
+  // Get the selected deadline value
+  const deadlineInput = todoDeadlineInputEl.value;
 
-  // Get and trim the inputted todo text
-  const todoText = todoInputEl.value.trim();
-
-  // Generate a new ID for the todo based on the current number of todos
-  const todoId = todos.length;
-
-  // Get the selected deadline for the todo from the input
-  const todoDeadline = todoDeadlineInputEl.value;
-
-  // Validate that the task text is not empty
-  if (!todoText) {
+  // If the input is empty or no deadline is selected, show a warning
+  if (!todoInput || !deadlineInput) {
     Swal.fire({
       icon: "info",
       title: "Oops...",
-      text: "Task must be filled!",
-    }); // Alert if the task is empty
+      text: "Task must be filled and deadline must be selected!",
+    });
+
     return;
   }
 
-  // Validate that a deadline has been selected
-  if (!todoDeadline) {
-    Swal.fire({
-      icon: "info",
-      title: "Oops...",
-      text: "No deadline selected!",
-    }); // Alert if no deadline is selected
-    return;
-  }
-
-  // Convert the deadline to a timestamp in milliseconds
-  const deadlineTimestamp = new Date(todoDeadline).getTime();
-
-  // Get the current time in milliseconds
-  const currentTimestamp = new Date().getTime();
-
-  // Create a new todo object with the gathered information
-  const todoObj = createTodoObject(
-    todoId,
-    todoText,
-    currentTimestamp,
-    deadlineTimestamp
+  // Create a new todo object with the necessary properties
+  const newTodo = createTodoObject(
+    existingTodos.length,
+    todoInput,
+    Date.now(),
+    new Date(deadlineInput).getTime()
   );
 
-  // Add the new todo to the existing list of todos
-  todos.push(todoObj);
+  // Add the new todo to the existing list and save to local storage
+  setTodoAtLocal([...existingTodos, newTodo]);
 
-  // Save the updated list of todos back to localStorage
-  setTodoAtLocal(todos);
-
-  // Clear the input fields for task text and deadline
+  // Clear the input fields
   todoInputEl.value = "";
   todoDeadlineInputEl.value = "";
+  // Append the new todo element to the DOM
+  todoListEl.appendChild(createTodoElement(newTodo.id, todoInput, false));
 
-  // Add the newly created todo to the UI (to the todo list)
-  todoListEl.appendChild(createTodoElement(todoId, todoText, false));
-
-  // Toggle the empty message if necessary, update chart data, and refresh deadlines
+  // Toggle empty message visibility if there are no more todos
   toggleEmptyTodoMsg();
+  // Update the chart with the new data
   updateChartData();
+  // Update deadlines and expired section visibility
   updateDeadlineTime();
 }
+
+
+

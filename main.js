@@ -4,8 +4,8 @@ import {
   addBtnEl,
   todoInputEl,
   todoListEl,
+  expiredTodoListEl,
   switchModeEl,
-  toggleEmptyTodoMsg,
   addToDo,
   handleClick,
   loadTodos,
@@ -15,7 +15,6 @@ import {
 
 /***** Load some function after DOM content loaded *****/
 window.addEventListener("DOMContentLoaded", function () {
-  toggleEmptyTodoMsg(); // Show Message when todo is empty
   createChart(); // Initialize the chart
   loadTodos(); // Load todos and update the chart
   todoInputEl.focus(); // Focus Input Element
@@ -26,6 +25,7 @@ window.addEventListener("DOMContentLoaded", function () {
 function initializeListeners() {
   addBtnEl.addEventListener("click", addToDo);
   todoListEl.addEventListener("click", handleClick);
+  expiredTodoListEl.addEventListener("click", handleClick)
 }
 
 /***** Dark Mode *****/

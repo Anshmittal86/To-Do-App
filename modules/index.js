@@ -5,10 +5,13 @@ import {
   switchModeEl,
   emptyTaskMsgEl,
   todoDeadlineInputEl,
+  expiredTodoListEl,
+  expiredTodoEl,
 } from "./domSelector";
 import { getTodoFromLocal } from "./getTodoFromLocal";
 import { setTodoAtLocal } from "./setTodoAtLocal";
 import { toggleEmptyTodoMsg } from "./toggleEmptyTodoMsg";
+import { toggleExpiredSectionVisibility } from "./toggleExpiredSectionVisibility";
 import { addToDo } from "./addTodo";
 import { createTodoElement } from "./createTodo";
 import { loadTodos } from "./loadTodos";
@@ -30,9 +33,12 @@ export {
   switchModeEl,
   emptyTaskMsgEl,
   todoDeadlineInputEl,
+  expiredTodoListEl,
+  expiredTodoEl,
   getTodoFromLocal,
   setTodoAtLocal,
   toggleEmptyTodoMsg,
+  toggleExpiredSectionVisibility,
   addToDo,
   createTodoElement,
   loadTodos,
@@ -46,5 +52,5 @@ export {
   createChart,
   updateChartData,
   disableTodo,
-  disabledTodoOnLoad
+  disabledTodoOnLoad,
 };
