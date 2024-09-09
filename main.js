@@ -11,10 +11,12 @@ import {
   loadTodos,
   createChart,
   updateChartData,
+  disableCompletedAndExpiredTodosOnLoad,
 } from "./modules";
 
 /***** Load some function after DOM content loaded *****/
 window.addEventListener("DOMContentLoaded", function () {
+  disableCompletedAndExpiredTodosOnLoad();
   createChart(); // Initialize the chart
   loadTodos(); // Load todos and update the chart
   todoInputEl.focus(); // Focus Input Element
@@ -25,7 +27,7 @@ window.addEventListener("DOMContentLoaded", function () {
 function initializeListeners() {
   addBtnEl.addEventListener("click", addToDo);
   todoListEl.addEventListener("click", handleClick);
-  expiredTodoListEl.addEventListener("click", handleClick)
+  expiredTodoListEl.addEventListener("click", handleClick);
 }
 
 /***** Dark Mode *****/
@@ -53,4 +55,3 @@ document
 function openDatePicker() {
   datePicker.open(); // Programmatically open the date picker
 }
-

@@ -18,6 +18,7 @@ import { loadTodos } from "./loadTodos";
 import { updateTodoStatus } from "./updateTodoStatus";
 import { updateDeadlineTime } from "./updateTime";
 import { updateElapsedTime } from "./updateElapsedTime";
+import { checkExpiredTodos } from "./checkExpired";
 import { handleCheckboxChange } from "./checkboxChange";
 import { handleDelete } from "./deleteTodo";
 import { handleEdit } from "./editTodo";
@@ -45,6 +46,7 @@ export {
   updateTodoStatus,
   updateDeadlineTime,
   updateElapsedTime,
+  checkExpiredTodos,
   handleCheckboxChange,
   handleDelete,
   handleEdit,

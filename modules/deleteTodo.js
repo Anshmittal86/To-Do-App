@@ -6,18 +6,25 @@ import {
   updateDeadlineTime,
 } from "./index";
 
-/**
- * Handle deleting a todo item
- *
- * @param {Element} target - Element that was clicked to delete the todo
- */
-export function handleDelete(target) {
-  // Get the todo item element and its ID
-  const todoElement = target.closest(".todo");
-  const todoId = parseInt(todoElement.id, 10);
+// Handle deleting a todo item
+export function handleDelete(todoId, target) {
+  // If todoId is provided, use it to get the todoElement
+  let todoElement;
+  if (todoId !== null && todoId !== undefined) {
+    todoElement = document.getElementById(`${todoId}`);
+  } else if (target) {
+    // If todoId is not provided, use the target element to get the todoElement
+    todoElement = target.closest(".todo");
+    todoId = parseInt(todoElement.id, 10);
+  }
 
   // Get the current list of todos from localStorage
   const todos = getTodoFromLocalStorage();
+
+  if (todoElement) {
+    // Remove the deleted todo from the DOM
+    todoElement.remove();
+  }
 
   // Create a new list of todos without the one being deleted
   const updatedTodos = todos.filter((todo) => todo.id !== todoId);
@@ -31,8 +38,10 @@ export function handleDelete(target) {
   // Save the updated todos back to localStorage
   setTodoInLocalStorage(updatedTodosWithReassignedIds);
 
-  // Remove the deleted todo from the DOM
-  todoElement.remove();
+  // Clear localStorage if there are no todos left
+  if (!updatedTodosWithReassignedIds.length || !todos.length) {
+    localStorage.clear();
+  }
 
   // Toggle the "No todos" message if there are no todos left
   toggleEmptyTodoMsg();
@@ -42,9 +51,4 @@ export function handleDelete(target) {
 
   // Update the deadlines of the remaining todos
   updateDeadlineTime();
-
-  // Clear localStorage if there are no todos left
-  if (!updatedTodosWithReassignedIds.length) {
-    localStorage.clear();
-  }
 }
