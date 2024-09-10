@@ -62,11 +62,8 @@ export function addToDo() {
 
   // Toggle empty message visibility if there are no more todos
   toggleEmptyTodoMsg();
-  // Update deadlines and expired section visibility
-  updateDeadlineTime();
   // Update the chart with the new data
   updateChartData();
+  // Update deadlines and expired section visibility
+  updateDeadlineTime();
 }
-
-
-

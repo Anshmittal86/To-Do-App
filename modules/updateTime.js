@@ -58,17 +58,14 @@ export function updateDeadlineTime(
           }
           // mark todo as expired and set timer for delete
           todo.expired = true;
-
-          disableTodo(todo.id);
+          // Update the localStorage with the new data
+          setTodoInLocalStorage(todos);
           updateChartData();
+          disableTodo(todo.id);
         }
       }
     });
-
-    // Update the localStorage with the new data
-    setTodoInLocalStorage(todos);
   }
-
   // Get the DOM element for the deadline text
   // This function is used to cache the elements so we don't have to query the DOM every time
   function getElement(todoId) {
