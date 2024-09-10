@@ -189,13 +189,8 @@ main {
 
 /* Todos Container  */
 
-.container-todos,
-.container-expiredTodos {
+.container-todos {
   margin-top: 2rem;
-}
-
-.container-expiredTodos .todos-list {
-  margin-top: 1.5rem;
 }
 
 .todos-list {
@@ -338,14 +333,6 @@ main {
 .todos-list > .todo > .delete-todo > i {
   font-size: var(--test-lg);
   color: var(--delete-color);
-}
-
-/* Expired todos Container  */
-
-.container-expiredTodos h2 {
-  font-size: var(--test-lg);
-  font-weight: 800;
-  color: var(--text-color);
 }
 
 /***************** Main Section - END ******************/

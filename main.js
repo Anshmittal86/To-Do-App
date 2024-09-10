@@ -4,7 +4,6 @@ import {
   addBtnEl,
   todoInputEl,
   todoListEl,
-  expiredTodoListEl,
   switchModeEl,
   addToDo,
   handleClick,
@@ -27,7 +26,6 @@ window.addEventListener("DOMContentLoaded", function () {
 function initializeListeners() {
   addBtnEl.addEventListener("click", addToDo);
   todoListEl.addEventListener("click", handleClick);
-  expiredTodoListEl.addEventListener("click", handleClick);
 }
 
 /***** Dark Mode *****/

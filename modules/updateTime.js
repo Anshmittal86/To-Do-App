@@ -2,9 +2,7 @@ import {
   getTodoFromLocalStorage,
   setTodoInLocalStorage,
   updateChartData,
-  toggleExpiredSectionVisibility,
   disableTodo,
-  handleDelete,
 } from "./index";
 import { intervalToDuration } from "date-fns";
 
@@ -17,10 +15,6 @@ export function updateDeadlineTime(
   interval = 1000
 ) {
   let timerId; // store timer ID against unexpired todos IDs
-  let todoTimers = {}; // store timer IDs against expired todos IDs
-
-  // Delay for deleting automatically todo after expire
-  const DELETE_DELAY = 3600000; // 3600000
 
   // Cache DOM elements
   const timeElements = {};
@@ -62,14 +56,17 @@ export function updateDeadlineTime(
           if (newTime === "Expire") {
             timeElement.textContent = newTime;
           }
-          // mark todo as expired and set set timer for delete
-          markTodoAsExpired(todo);
+          // mark todo as expired and set timer for delete
+          todo.expired = true;
 
-          // Move to expired section
-          moveToExpiredSection(todo.id);
+          disableTodo(todo.id);
+          updateChartData();
         }
       }
     });
+
+    // Update the localStorage with the new data
+    setTodoInLocalStorage(todos);
   }
 
   // Get the DOM element for the deadline text
@@ -83,53 +80,6 @@ export function updateDeadlineTime(
       return newTimeElement;
     }
     return timeElement; // Return the cached element
-  }
-
-  function markTodoAsExpired(todo) {
-    todo.expired = true;
-    disableTodo(todo.id);
-
-    // Set expiration timestamp (current time + DELETE_DELAY)
-    const expirationTime = Date.now() + DELETE_DELAY; // DELETE_DELAY in milliseconds
-    todo.expirationTime = expirationTime;
-
-    // Store the timer IDs for future cancellation
-    todoTimers[todo.id] = setTimeout(() => {
-      handleDelete(todo.id);
-      clearTodoTimer(todo.id); // clear the timer after deletion
-    }, DELETE_DELAY); // 1 hour (3600000 milliseconds)
-
-    // Update the localStorage with the new data
-    setTodoInLocalStorage(todos);
-  }
-
-  // Move the todo element to the expired section
-  function moveToExpiredSection(todoId) {
-    const todoElement = document.getElementById(`${todoId}`);
-    const expiredList = document.querySelector(
-      ".container-expiredTodos .todos-list"
-    );
-
-    // If the element is not null, remove it from the main list
-    if (todoElement) {
-      todoElement.remove();
-
-      // If the element is not already in the expired list, add it
-      if (!expiredList.contains(todoElement)) {
-        expiredList.appendChild(todoElement);
-        toggleExpiredSectionVisibility();
-      }
-
-      // Update the chart
-      updateChartData();
-    }
-  }
-
-  function clearTodoTimer(todoId) {
-    if (todoTimers[todoId]) {
-      clearTimeout(todoTimers[todoId]);
-      delete todoTimers[todoId]; // Remove the timer ID after clearing it
-    }
   }
 
   // Get Remaining time for todo

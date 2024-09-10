@@ -1,11 +1,5 @@
 import { getTodoFromLocalStorage, setTodoInLocalStorage } from "./index";
 
-/**
- * Update the status of a todo in the local storage
- *
- * @param {number} todoId - The ID of the todo that needs to be updated
- * @param {boolean} isCompleted - The new status of the todo
- */
 export function updateTodoStatus(todoId, isCompleted) {
   // Get the current list of todos from local storage
   const todos = getTodoFromLocalStorage();

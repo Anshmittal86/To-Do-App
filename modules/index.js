@@ -5,20 +5,16 @@ import {
   switchModeEl,
   emptyTaskMsgEl,
   todoDeadlineInputEl,
-  expiredTodoListEl,
-  expiredTodoEl,
 } from "./domSelector";
 import { getTodoFromLocalStorage } from "./getTodoFromLocalStorage";
 import { setTodoInLocalStorage } from "./setTodoInLocalStorage";
 import { toggleEmptyTodoMsg } from "./toggleEmptyTodoMsg";
-import { toggleExpiredSectionVisibility } from "./toggleExpiredSectionVisibility";
 import { addToDo } from "./addTodo";
 import { createTodoElement } from "./createTodo";
 import { loadTodos } from "./loadTodos";
 import { updateTodoStatus } from "./updateTodoStatus";
 import { updateDeadlineTime } from "./updateTime";
 import { updateElapsedTime } from "./updateElapsedTime";
-import { checkExpiredTodos } from "./checkExpired";
 import { handleCheckboxChange } from "./checkboxChange";
 import { handleDelete } from "./deleteTodo";
 import { handleEdit } from "./editTodo";
@@ -34,19 +30,15 @@ export {
   switchModeEl,
   emptyTaskMsgEl,
   todoDeadlineInputEl,
-  expiredTodoListEl,
-  expiredTodoEl,
   getTodoFromLocalStorage,
   setTodoInLocalStorage,
   toggleEmptyTodoMsg,
-  toggleExpiredSectionVisibility,
   addToDo,
   createTodoElement,
   loadTodos,
   updateTodoStatus,
   updateDeadlineTime,
   updateElapsedTime,
-  checkExpiredTodos,
   handleCheckboxChange,
   handleDelete,
   handleEdit,
