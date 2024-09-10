@@ -53,7 +53,7 @@ To install this project, follow these steps:
 
 ## Live Demo
 
-Live:- https://anshtodoapp.netlify.app/
+Live:- https://moderntodoappbyansh.netlify.app/
 
 ## Contributing
 
