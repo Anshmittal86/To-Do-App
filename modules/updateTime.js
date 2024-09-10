@@ -16,7 +16,6 @@ export function updateDeadlineTime(
   todos = getTodoFromLocalStorage(),
   interval = 1000
 ) {
-
   let timerId; // store timer ID against unexpired todos IDs
   let todoTimers = {}; // store timer IDs against expired todos IDs
 
@@ -34,7 +33,6 @@ export function updateDeadlineTime(
    * It also updates the chart with the new data.
    */
   function updateTodoTimes() {
-
     // Re-fetch todos from localStorage to reflect any updates
     todos = getTodoFromLocalStorage();
 
@@ -61,6 +59,9 @@ export function updateDeadlineTime(
 
         // If the deadline has expired, mark it as expired and move it to the expired list
         if (newTime === "Expire" || todo.deadline - Date.now() <= 1000) {
+          if (newTime === "Expire") {
+            timeElement.textContent = newTime;
+          }
           // mark todo as expired and set set timer for delete
           markTodoAsExpired(todo);
 
@@ -75,7 +76,8 @@ export function updateDeadlineTime(
   // This function is used to cache the elements so we don't have to query the DOM every time
   function getElement(todoId) {
     const timeElement = timeElements[todoId]; // Check if the element is already cached
-    if (!timeElement) { // If it's not cached, query the DOM and cache it
+    if (!timeElement) {
+      // If it's not cached, query the DOM and cache it
       const newTimeElement = document.querySelector(`#todo-deadline-${todoId}`);
       timeElements[todoId] = newTimeElement;
       return newTimeElement;
@@ -101,7 +103,6 @@ export function updateDeadlineTime(
     setTodoInLocalStorage(todos);
   }
 
-
   // Move the todo element to the expired section
   function moveToExpiredSection(todoId) {
     const todoElement = document.getElementById(`${todoId}`);
@@ -123,7 +124,6 @@ export function updateDeadlineTime(
       updateChartData();
     }
   }
-
 
   function clearTodoTimer(todoId) {
     if (todoTimers[todoId]) {
@@ -162,6 +162,4 @@ export function updateDeadlineTime(
     if (timerId) clearInterval(timerId);
     timerId = setInterval(updateTodoTimes, interval);
   }
-
-  
 }
