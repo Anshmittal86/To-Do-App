@@ -1,24 +1,50 @@
 # Modern Todo App
 
-![App Screenshot](./screenshots/dark-desktop.png)
-![App Screenshot](./screenshots/dark-desktop-with-chart.png)
-![App Screenshot](./screenshots/dark-mobile.png)
-![App Screenshot](./screenshots/light-desktop.png)
+![App Screenshot](./screenshots/desktop_dark.png)
+![App Screenshot](./screenshots/desktop_dark_with_chart.png)
+![App Screenshot](./screenshots/desktop_light.png)
+![App Screenshot](./screenshots/mobile_dark.jpeg)
 
-## Description
+---
 
-This is a modern To-Do app that allows you to easily edit, delete, and track the completion status of your tasks. All your to-do data is securely stored in localStorage, so you don’t have to worry about losing your information. Additionally, the app features a dynamic chart to display the number of completed tasks versus remaining tasks.
+## ✨ Description
 
-For a customizable user experience, you can switch between light and dark modes to suit your preference.
+This is a modern To-Do app that makes task management seamless and efficient. With the latest update, the app now includes a powerful **⏰ Deadline Management System**, allowing you to set deadlines for each to-do. If a deadline is crossed, the task automatically expires, ensuring you stay on top of your priorities. The app also features **📊 Real-Time Chart Updates** that reflect every change—whether a task is completed, deleted, or expired.
 
-## Features
+All your to-do data is securely stored in **💾 localStorage**, so you don’t have to worry about losing your information. Additionally, the app offers a customizable user experience with **🌞 Light Mode** and **🌙 Dark Mode** options.
 
-**Direct Task Editing:** Modify your to-dos directly from the interface.
-**Task Deletion:** Remove tasks easily when they are no longer needed.
-**Task Status Toggle:** Check off tasks as completed and uncheck them to mark them as pending.
-**Light and Dark Modes:** Switch between light and dark themes for a comfortable viewing experience.
-**Dynamic Completion Chart:** Visualize the status of completed tasks with an interactive chart.
-**Local Storage:** Your data is securely stored in local storage, ensuring it’s preserved even if you close the app.
+---
+
+## 🚀 Features  
+
+### ⏰ **Deadline Management System**  
+- Set deadlines for each task.  
+- If the deadline is crossed, the task automatically expires.  
+- Each to-do has its own efficient timer system to manage deadlines seamlessly.
+
+### 📊 **Real-Time Chart Updates**  
+- The dynamic chart automatically refreshes whenever a task is completed, deleted, or expired.  
+- Provides an up-to-date visual representation of your task status.  
+
+### 📝 **Direct Task Editing**  
+- Modify your to-dos directly from the interface without any hassle.
+
+### ❌ **Task Deletion**  
+- Remove tasks easily when they are no longer needed.  
+
+### ✅ **Task Status Toggle**  
+- Mark tasks as completed and unmark them to set them back to pending.  
+
+### 🌞🌙 **Light and Dark Modes**  
+- Switch between light and dark themes for a comfortable viewing experience.  
+
+### 📊 **Dynamic Completion Chart**  
+- Visualize the status of completed, pending, and expired tasks with an interactive chart.  
+
+### 💾 **Local Storage**  
+- Your data is securely stored in local storage, ensuring it’s preserved even if you close the app.  
+
+---
 
 ## Installation
 
@@ -51,9 +77,13 @@ To install this project, follow these steps:
 
 4. Any other setup instructions
 
+---
+
 ## Live Demo
 
 Live:- https://moderntodoappbyansh.netlify.app/
+
+---
 
 ## Contributing
 
@@ -65,6 +95,8 @@ If you’d like to contribute to this project, follow these guidelines:
     4. Commit your changes (git commit -am 'Add new feature')
     5. Push to the branch (git push origin feature/your-feature)
     6. Create a new Pull Request
+
+---
 
 ## License
 
