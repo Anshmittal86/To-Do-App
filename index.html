@@ -1,109 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--***************** Browser tab theme colors - START ******************-->
-    <meta
-      name="theme-color"
-      media="(prefer-color-scheme: light)"
-      content="#f5f7f8"
-    />
-    <meta
-      name="theme-color"
-      media="(prefer-color-scheme: dark)"
-      content="#262626"
-    />
-    <!--***************** Browser tab theme colors - END ******************-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--***************** SEO Meta Tags - START ******************-->
-    <meta name="author" content="Ansh Mittal" />
-    <meta
-      name="description"
-      content="Manage your tasks efficiently with this intuitive TO DO app. Add, check, and remove tasks easily."
-    />
-    <!--***************** SEO Meta Tags - END ******************-->
+  <!--***************** Browser tab theme colors - START ******************-->
+  <meta name="theme-color" media="(prefer-color-scheme: light)" content="#f5f7f8">
+  <meta name="theme-color" media="(prefer-color-scheme: dark)" content="#262626">
+  <!--***************** Browser tab theme colors - END ******************-->
 
-    <!--***************** External Links - START ******************-->
-    <!-- Remix Icon  -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <!-- Modern CSS Normalizer  -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.0/modern-normalize.min.css"
-      integrity="sha512-3axTZ/bKFZH5/qLFTl4U+mDbBDFW+5QO5L7D1HnOhlhJbcNDIVJxoNm6It77g0eUdzfKZlHirayqRC2qJaAOJw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Nunito Font CDN  -->
-    <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet" />
-    <!-- Stylesheet  -->
-    <link rel="stylesheet" href="./stylesheets/style.css" />
-    <!--***************** External Links - END ******************-->
+  <!--***************** SEO Meta Tags - START ******************-->
+  <meta name="author" content="Ansh Mittal">
+  <meta name="title" content="Modern TODO App">
+  <meta name="description"
+    content="Manage your tasks efficiently with this intuitive TO DO app. Add, check, and remove tasks easily | Modern TODO App">
+  <!--***************** SEO Meta Tags - END ******************-->
 
-    <title>My TO DO App - Organize Your Tasks Efficiently</title>
-  </head>
+  <!--***************** External Links - START ******************-->
 
-  <body>
-    <!--************* Main Section - START **************-->
-    <main>
-      <!--********* Dark mode - START **************-->
-      <div class="switch-mode">
-        <i class="ri-sun-line sun hidden"></i>
-        <i class="ri-contrast-2-line moon"></i>
+  <!-- Remix Icon  -->
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Modern CSS Normalizer  -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.0/modern-normalize.min.css"
+    integrity="sha512-3axTZ/bKFZH5/qLFTl4U+mDbBDFW+5QO5L7D1HnOhlhJbcNDIVJxoNm6It77g0eUdzfKZlHirayqRC2qJaAOJw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Nunito Font CDN  -->
+
+  <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet">
+
+  <!-- Stylesheet  -->
+
+  <link rel="stylesheet" href="./stylesheets/style.css">
+
+  <!--***************** External Links - END ******************-->
+  <title>My TO DO App - Organize Your Tasks Efficiently</title>
+</head>
+
+<body>
+  <!--************* Main Section - START **************-->
+  <main>
+    <!--********* Dark mode - START **************-->
+    <div class="switch-mode">
+      <i class="ri-sun-line sun hidden"></i>
+      <i class="ri-contrast-2-line moon"></i>
+    </div>
+    <!--********* Dark mode - END **************-->
+
+    <!--********* Default Message - START *********-->
+
+    <div class="empty-task-msg hidden">
+      <p>You don't have any Task today.</p>
+    </div>
+
+    <!--******** Default Message - END ************-->
+
+    <!--********* TODO Section - START ************-->
+
+    <section class="main-container">
+      <div class="todo-chart">
+        <canvas id="myDoughnutChart"></canvas>
       </div>
-      <!--********* Dark mode - END **************-->
+      <h1>TO DO App</h1>
+      <div class="addTodo-container">
+        <label for="todo-input" class="visually-hidden">Task name</label>
+        <input type="text" name="todo" id="todo-input" placeholder="Task name" />
+        <div class="date-picker">
+          <!-- Flatpickr Input Field -->
+          <input type="text" id="todoDeadline" placeholder="Select Date and Time" class="hidden" />
 
-      <!--********* Default Message - START *********-->
-      <div class="empty-task-msg hidden">
-        <p>You don't have any Task today.</p>
+          <!-- Label with Calendar Icon -->
+          <button type="button" class="date-picker" id="calendarIcon">
+            <i class="ri-calendar-schedule-line"></i>
+          </button>
+        </div>
+        <button id="add-todo">Add</button>
       </div>
-      <!--******** Default Message - END ************-->
 
-      <!--********* TODO Section - START ************-->
-      <section class="main-container">
-        <div class="todo-chart">
-          <canvas id="myDoughnutChart"></canvas>
-        </div>
-        <h1>TO DO App</h1>
-        <div class="addTodo-container">
-          <label for="todo-input" class="visually-hidden">Task name</label>
-          <input
-            type="text"
-            name="todo"
-            id="todo-input"
-            placeholder="Task name"
-          />
-          <div class="date-picker">
-            <!-- Flatpickr Input Field -->
-            <input
-              type="text"
-              id="todoDeadline"
-              placeholder="Select Date and Time"
-              class="hidden"
-            />
+      <div class="container-todos">
+        <ul class="todos-list">
+          <!-- To Do added by JavaScript -->
+        </ul>
+      </div>
+    </section>
 
-            <!-- Label with Calendar Icon -->
-            <button type="button" class="date-picker" id="calendarIcon">
-              <i class="ri-calendar-schedule-line"></i>
-            </button>
-          </div>
-          <button id="add-todo">Add</button>
-        </div>
+    <!--********* TODO Section - END **************-->
 
-        <div class="container-todos">
-          <ul class="todos-list">
-            <!-- To Do added by JavaScript -->
-          </ul>
-        </div>
-      </section>
-      <!--********* TODO Section - END **************-->
-    </main>
-    <!--************* Main Section - END **************-->
-    <script type="module" src="/main.js"></script>
-  </body>
+  </main>
+
+  <!--************* Main Section - END **************-->
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>

@@ -9,16 +9,6 @@ const ctx = document.getElementById("myDoughnutChart").getContext("2d");
 let myDoughnutChart; // Global chart instance
 
 // Create Chart
-/**
- * This function creates a Doughnut chart using the Chart.js library.
- * The chart is created with a fixed width and height, and is responsive.
- * The chart displays the total number of todos, the number of completed todos,
- * and the number of expired todos as a percentage of the total.
- * The chart also displays a label with the completed todos count
- * and the total todos count in the center of the chart.
- *
- * @param {object} ctx - The canvas context to render the chart on
- */
 export function createChart() {
   const initialData = {
     labels: ["Complete", "Incomplete", "Expired"],
@@ -35,14 +25,6 @@ export function createChart() {
   };
 
   const centerTextPlugin = {
-    id: "centerText",
-    /**
-     * This function is called before the chart is drawn.
-     * It renders a label with the completed todos count and the total todos count
-     * in the center of the chart.
-     *
-     * @param {object} chart - The chart object
-     */
     beforeDraw: (chart) => {
       const { ctx, width, height } = chart;
       const centerX = width / 2;
@@ -101,17 +83,7 @@ export function createChart() {
 }
 
 // Update Chart
-/**
- * This function takes in the total number of todos, the number of incomplete
- * todos, the number of completed todos, and the number of expired todos as
- * parameters. It then calculates the percentage of each type of todo and
- * updates the chart with the new data.
- *
- * @param {number} totalTodos - The total number of todos
- * @param {number} incompleteTodos - The number of incomplete todos
- * @param {number} completedTodos - The number of completed todos
- * @param {number} expiredTodos - The number of expired todos
- */
+
 export function updateChart(
   totalTodos,
   incompleteTodos,
@@ -151,12 +123,7 @@ export function updateChart(
 }
 
 // Update Chart Data
-/**
- * This function updates the chart data by fetching the current state of the
- * todos from local storage, and then calculating the number of completed and
- * incomplete todos. It then calls the updateChart function to update the chart
- * with the new data.
- */
+
 export function updateChartData() {
   // Get the current state of the todos from local storage
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
